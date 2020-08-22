@@ -14,9 +14,9 @@ on:
     types: [started]
     
 env:
-  ROM_URL: https://mde1.androidfilehost.com/dl/wDjnUFNBGZLzmSg7Dq_JfA/1598145299/8889791610682921333/MMX_2x.22.0_lmi_20.8.20_v12-11_20200821.zip
+  ROM_URL: https://mva2.androidfilehost.com/dl/tuWbyTFF9tmU6puqe5gGIQ/1598167796/8889791610682921242/xiaomi.eu_multi_MI10Pro_20.8.20_v12-11.zip
   ROM_NAME: Generic
-  ZIP_NAME: Poccof2pro
+  ZIP_NAME: MI10PRO
   TZ: Asia/Kathmandu
   MIR: wet
 jobs:
