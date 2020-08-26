@@ -1,4 +1,4 @@
-name: Building GSI..
+# name: Building GSI
 
 on:
 #  release:
@@ -14,9 +14,7 @@ on:
     types: [started]
     
 env:
-  ROM_URL: https://mva2.androidfilehost.com/dl/tuWbyTFF9tmU6puqe5gGIQ/1598167796/8889791610682921242/xiaomi.eu_multi_MI10Pro_20.8.20_v12-11.zip
-  ROM_NAME: Generic
-  ZIP_NAME: MI10PRO
+  ROM: Pixel 4a
   TZ: Asia/Kathmandu
   MIR: wet
 jobs:
@@ -26,24 +24,14 @@ jobs:
     steps:
        - name: Checkout
          uses: actions/checkout@master
-       
-       - name: Clean Up
-         run: |
-           docker rmi `docker images -q`
-           sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-           sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* php*
-           sudo -E apt-get update
-           sudo -E apt-get -y autoremove --purge
-           sudo -E apt-get clean 
            
        - name: Initializing environment
          run: |
             sudo -E apt-get -qq update
             sudo -E apt-get -qq install git openjdk-8-jdk wget
-
        
        - name: Clone ErfanGSI Source Code
-         run: git clone --recurse-submodules https://github.com/erfanoabdi/ErfanGSIs
+         run: git clone https://github.com/yukosky/ErfanGSIs -b runner
        
        - name: Setting up ErfanGSI requirements
          run: |
@@ -51,25 +39,57 @@ jobs:
               cd ErfanGSIs
               sudo bash setup.sh
        
-       - name: Download Stock Rom & Generate GSI
-         run: sudo ./ErfanGSIs/url2GSI.sh $ROM_URL $ROM_NAME
-       
-       - name: Zip Aonly and upload 
-         run: |
-              mkdir final
-              sudo chmod -R 777 ErfanGSIs/output
-              cd ErfanGSIs/output
-              zip -r $ZIP_NAME-GSI-Aonly.7z *-Aonly-*.img
-              curl -sL https://git.io/file-transfer | sh
-              ./transfer $MIR $ZIP_NAME-GSI-Aonly.7z          
-       - name: Zip AB and upload 
-         run: |
-              cd ErfanGSIs/output
-              zip -r $ZIP_NAME-GSI-AB.7z *-AB-*.img
-              ./transfer $MIR $ZIP_NAME-GSI-AB.7z      
+       - name: Download Firmware & Generate GSI & Zip and Upload
+         run:  |
+               sudo ./ErfanGSIs/url2GSI.sh https://dl.google.com/dl/android/aosp/sunfish-qd4a.200805.003-factory-fac7c08d.zip Generic:Pixel
+               mkdir final
+               
+               export date2=`date +%Y%m%d%H%M`
+               export sourcever2=`cat ./ErfanGSIs/ver`
+               sudo chmod -R 777 ErfanGSIs/output
+               
+               curl -sL https://git.io/file-transfer | sh
+               
+               zip -r ErfanGSIs/output/$ROM-Aonly-$sourcever2-$date2-ErfanGSI-YuMiGSI.7z ErfanGSIs/output/*-Aonly-*.img
+               ./transfer $MIR ErfanGSIs/output/$ROM-Aonly-$sourcever2-$date2-ErfanGSI-YuMiGSI.7z
+               
+               zip -r ErfanGSIs/output/$ROM-AB-$sourcever2-$date2-ErfanGSI-YuMiGSI.7z  ErfanGSIs/output/*-AB-*.img
+               ./transfer $MIR ErfanGSIs/output/$ROM-AB-$sourcever2-$date2-ErfanGSI-YuMiGSI.7z
+                  
        - name: Print build info
          run: |
               cat ErfanGSIs/output/*-Aonly-*.txt
-         
-            
+              echo "--------"
+              cat ErfanGSIs/output/*-AB-*.txt is a basic workflow to help you get started with Actions
 
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Runs a single command using the runners shell
+    - name: Run a one-line script
+      run: echo Hello, world!
+
+    # Runs a set of commands using the runners shell
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
