@@ -14,7 +14,7 @@ on:
     types: [started]
     
 env:
-  ROM: Pixel 4a
+  ROM: Aosp
   TZ: Asia/Kathmandu
   MIR: wet
 jobs:
@@ -41,7 +41,7 @@ jobs:
        
        - name: Download Firmware & Generate GSI & Zip and Upload
          run:  |
-               sudo ./ErfanGSIs/url2GSI.sh https://dl.google.com/dl/android/aosp/sunfish-qd4a.200805.003-factory-fac7c08d.zip Generic:Pixel
+               sudo ./ErfanGSIs/url2GSI.sh https://dl.google.com/developers/android/rvc/images/gsi/aosp_arm64-exp-RP1A.200720.009-6720564-019b517d.zip Generic:aosp
                mkdir final
                
                export date2=`date +%Y%m%d%H%M`
