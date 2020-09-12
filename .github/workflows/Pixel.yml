@@ -14,11 +14,11 @@ on:
     types: [started]
     
 env:
-  ROM_URL: https://dl.google.com/dl/android/aosp/sunfish-qd4a.200805.003-factory-fac7c08d.zip
+  ROM_URL: https://dl.google.com/developers/android/rvc/images/gsi/aosp_arm64-exp-RP1A.200720.009-6720564-019b517d.zip
   ROM_NAME: Generic
-  ZIP_NAME: pixel4a
+  ZIP_NAME: aosp
   TZ: Asia/Kolkata
-  MIR: git
+  MIR: wet
 jobs:
   build:
     runs-on: ubuntu-latest
