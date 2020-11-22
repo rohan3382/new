@@ -14,7 +14,7 @@ on:
     types: [started]
     
 env:
-  ROM_URL: https://dl.google.com/developers/android/rvc/images/gsi/aosp_arm64-exp-RP1A.200720.009-6720564-019b517d.zip
+  ROM_URL: https://dl.google.com/dl/android/aosp/walleye-rp1a.201005.004-factory-78b8d156.zip
   ROM_NAME: Generic
   ZIP_NAME: aosp
   TZ: Asia/Kolkata
