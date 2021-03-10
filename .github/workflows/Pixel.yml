@@ -14,9 +14,9 @@ on:
     types: [started]
     
 env:
-  ROM_URL: https://dl.google.com/dl/android/aosp/walleye-rp1a.201005.004-factory-78b8d156.zip
+  ROM_URL: https://dl.google.com/developers/android/sc/images/factory/sunfish-spp1.210122.022-factory-40956626.zip
   ROM_NAME: Generic
-  ZIP_NAME: aosp
+  ZIP_NAME: pixel
   TZ: Asia/Kolkata
   MIR: wet
 jobs:
