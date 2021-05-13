@@ -41,7 +41,7 @@ jobs:
        
        - name: Download Firmware & Generate GSI & Zip and Upload
          run:  |
-               sudo ./ErfanGSIs/url2GSI.sh https://dl.google.com/developers/android/rvc/images/gsi/aosp_arm64-exp-RP1A.200720.009-6720564-019b517d.zip Generic:aosp
+               sudo ./ErfanGSIs/url2GSI.sh https://dl.google.com/developers/android/sc/images/factory/redfin-spp3.210325.010-factory-3b4bc719.zip Generic:Pixel
                mkdir final
                
                export date2=`date +%Y%m%d%H%M`
